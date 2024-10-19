@@ -1,37 +1,36 @@
 function newItem(){
 
-//javascript
-//1. Adding a new item to the list of items: 
-    let li = document.createElement("li");
-    let inputValue = document.getElementById("input").value;
-    let text = document.createTextNode(inputValue);
-    li.appendChild(text);
-
+    //javascript
+    //1. Adding a new item to the list of items:
+    let list = $('#list');
+    let li = $('<li></li>');
+    let inputValue = $('#input').val();
     if (inputValue === '') {
         alert("You must write something!");
     } else {
-        let list = document.querySelector('#list');
-        list.appendChild(li);
+        li.append(inputValue);
+        list.append(li);
+        $('#input').val('');
     }
 
     //2. Crossing out an item from the list of items:
     function crossOut() {
-            li.classList.toggle("strike");
-        }
+        li.toggleClass('strike');
+    }
 
-        li.addEventListener("dblclick",crossOut);
+    li.on('dblclick', crossOut);
 
-    //3(i). Adding the delete button "X": 
-    let crossOutButton = document.createElement("crossOutButton");
-        crossOutButton.appendChild(document.createTextNode("X"));
-        li.appendChild(crossOutButton);
+    //3(i). Adding the delete button "X":
+    let crossOutButton = $('<crossoutbutton>X</crossoutbutton>');
+    li.append(crossOutButton);
 
-        crossOutButton.addEventListener("click", deleteListItem);
     //3(ii). Adding CLASS DELETE (DISPLAY: NONE) from the css:
     function deleteListItem(){
-            li.classList.add("delete")
-        }
+        li.addClass('delete');
+    }
+
+    crossOutButton.on('click', deleteListItem);
+
     // 4. Reordering the items: 
     $('#list').sortable();
-
-}    
+}
